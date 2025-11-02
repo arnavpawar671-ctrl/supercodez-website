@@ -1,0 +1,245 @@
+@import url('https://fonts.googleapis.com/css2?family=Aclonica&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.showcase {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #111;
+    color: #fff;
+    z-index: 2;
+    transition: 0.5s;
+}
+
+.showcase.active {
+    pointer-events: auto;
+}
+
+.showcase video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    mix-blend-mode: overlay;
+}
+
+/* Header and Logo positioning */
+header {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    padding-bottom: 50px;
+}
+
+.custom-logo {
+    text-transform: uppercase;
+    font-size: 2.5em;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    transition: 0.3s ease;
+}
+
+.custom-logo:hover {
+    color: #00bcd4;
+    transform: scale(1.05);
+}
+
+/* Base style for both toggle buttons */
+.toggle {
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    cursor: pointer;
+    z-index: 11;
+    transition: 0.5s ease-in-out;
+    opacity: 0.7;
+    filter: invert(1); /* Ensure it's white */
+}
+
+/* Initial state for the hamburger icon (in header) */
+header .toggle {
+    background-image: url('menu.png'); /* Hamburger icon */
+}
+
+/* Active state for the hamburger icon (it disappears as menu opens) */
+header .toggle.active {
+    opacity: 0; /* Make it disappear or hide it completely */
+    pointer-events: none; /* Disable clicks */
+}
+
+/* Close button inside the menu */
+.close-menu-btn {
+    background-image: url('close.png'); /* Close icon */
+    position: absolute; /* Position relative to the menu container */
+    top: 30px; /* Adjust as needed for top-right */
+    right: 30px; /* Adjust as needed for top-right */
+    z-index: 12; /* Ensure it's above other menu elements */
+    opacity: 0.7;
+    filter: invert(1);
+    transform: rotate(0deg); /* No rotation for this one initially */
+    transition: 0.5s ease-in-out;
+}
+
+/* Optional: animation for the close button if you want it to rotate when active */
+.close-menu-btn.active {
+    transform: rotate(180deg);
+}
+
+.text {
+    position: relative;
+    z-index: 10;
+    max-width: 700px;
+    margin: auto 0;
+    text-align: left;
+    padding-left: 0;
+}
+
+.text h2 {
+    font-size: 5em;
+    font-weight: 800;
+    line-height: 1em;
+    text-transform: uppercase;
+}
+
+.text h3 {
+    font-size: 4em;
+    font-weight: 700;
+    line-height: 1em;
+    text-transform: uppercase;
+}
+
+.text p {
+    font-size: 1.1em;
+    margin: 20px 0;
+    font-weight: 400;
+}
+
+.text a {
+    display: inline-block;
+    font-size: 1em;
+    background: #fff;
+    padding: 10px 30px;
+    text-decoration: none;
+    color: #111;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: 0.2s;
+}
+
+.text a:hover {
+    letter-spacing: 6px;
+}
+
+.social {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    opacity: 0.5;
+    padding-top: 50px;
+}
+
+.social li {
+    list-style: none;
+    /* No margin-right to eliminate space between items */
+}
+
+.social li + li { /* No space between social app logos */
+    margin-left: 0; 
+}
+
+
+.social li img {
+    display: inline-block;
+    filter: invert(1);
+    transform: scale(0.3);
+    transition: 0.3s;
+}
+
+.social li img:hover {
+    transform: scale(0.4);
+    opacity: 1;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Allow content to stack */
+    justify-content: center; /* Center menu items */
+    align-items: center;
+    z-index: 3;
+    background: rgba(34, 34, 34, 0.95);
+    transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    padding-top: 80px; /* Space for the close button at the top */
+}
+
+.menu.active {
+    right: 0;
+}
+
+.menu ul {
+    position: relative;
+    list-style: none;
+    text-align: center;
+    width: 100%; /* Ensure ul takes full width of menu */
+}
+
+.menu ul li {
+    margin: 20px 0;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    font-size: 28px;
+    color: #fff;
+    padding: 10px 0;
+    display: inline-block;
+    transition: 0.3s ease;
+    letter-spacing: 1px;
+}
+
+.menu ul li a:hover {
+    color: #00bcd4;
+    transform: scale(1.1);
+    letter-spacing: 3px;
+}

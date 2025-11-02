@@ -1,0 +1,21 @@
+ body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Prevent scroll for the background elements */
+        }
+        .bg-gradient-custom {
+            background: linear-gradient(135deg, #6A5ACD, #483D8B); /* Deeper purple gradient */
+        }
+        .font-dancing-script {
+            font-family: 'Dancing Script', cursive;
+        }
+        /* Custom styles for abstract shapes - these would typically be SVG or generated via JS for true 3D */
+        .shape-sphere {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            filter: blur(20px);
+        }
+        .shape-cylinder {
+            background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 9999px; /* Pill shape */
+            filter: blur(15px);
+        }
