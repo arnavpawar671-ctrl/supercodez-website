@@ -242,4 +242,11 @@ header .toggle.active {
     color: #00bcd4;
     transform: scale(1.1);
     letter-spacing: 3px;
+
+}
+.logo {
+  height: 70px;       /* adjust as needed */
+  width: auto;
+  display: block;
+  margin: 10px auto;  /* centers it */
 }
