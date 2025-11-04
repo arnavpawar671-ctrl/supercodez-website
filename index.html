@@ -51,6 +51,51 @@
             <a href="loginthroughsocial.html" class="text-white hover:text-gray-300 transition-colors duration-200">Social Login</a>
         </div>
     </nav>
+    <!-- Chat Widget HTML -->
+<div id="chat-widget" style="position:fixed;bottom:24px;right:24px;width:320px;max-width:90vw;background:#f5f5f5;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,0.15);display:none;flex-direction:column;overflow:hidden;z-index:9999;">
+  <div style="background:#007bff;color:white;padding:12px;font-size:1.2em;">Help Desk Chat <span id="close-chat" style="float:right;cursor:pointer;">&#x2715;</span></div>
+  <div id="chat-messages" style="height:240px;overflow-y:auto;padding:12px;background:#fff;font-size:1em;"></div>
+  <form id="chat-form" style="display:flex;border-top:1px solid #ddd;">
+    <input type="text" id="chat-input" placeholder="Type your message..." style="flex:1;border:none;padding:12px;font-size:1em;">
+    <button type="submit" style="border:none;background:#007bff;color:white;padding:0 18px;font-size:1em;cursor:pointer;">Send</button>
+  </form>
+</div>
+<button id="toggle-chat" style="position:fixed;bottom:24px;right:24px;z-index:9998;background:#007bff;color:white;border:none;border-radius:50%;width:52px;height:52px;box-shadow:0 2px 6px rgba(0,0,0,0.12);font-size:1.5em;cursor:pointer;">💬</button>
+<script>
+// Simple chat widget logic
+const chatWidget = document.getElementById('chat-widget');
+const toggleButton = document.getElementById('toggle-chat');
+const closeButton = document.getElementById('close-chat');
+toggleButton.onclick = () => { chatWidget.style.display = 'flex'; toggleButton.style.display = 'none'; };
+closeButton.onclick = () => { chatWidget.style.display = 'none'; toggleButton.style.display = 'block'; };
+
+const chatMessages = document.getElementById('chat-messages');
+const chatForm = document.getElementById('chat-form');
+const chatInput = document.getElementById('chat-input');
+
+// Connect to backend WebSocket server
+const socket = new WebSocket('ws://localhost:3000');
+socket.onopen = () => addMessage('Support', 'You are now connected. How can I help you?');
+socket.onmessage = e => addMessage('Support', e.data);
+socket.onerror = () => addMessage('System', 'Connection lost. Please try again later.');
+
+function addMessage(sender, text) {
+  const div = document.createElement('div');
+  div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+  div.style.marginBottom = '8px';
+  chatMessages.appendChild(div);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+chatForm.onsubmit = e => {
+  e.preventDefault();
+  const msg = chatInput.value.trim();
+  if (!msg) return;
+  addMessage('You', msg);
+  socket.send(msg);
+  chatInput.value = '';
+};
+</script>
 
     <!-- Main Content -->
     <main class="flex-grow flex flex-col items-center justify-center text-center p-6 z-10">
@@ -70,5 +115,6 @@
 
 </body>
 </html>
+
 
 
